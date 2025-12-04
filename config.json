@@ -1,29 +1,41 @@
 {
-    "funcion": "f(x,y) = (x^2 + 1)^(y^2 + 1) + e^y + e^-y",
+    "funcion": "f(x,y) = (x^2 + 1)^(y^2 + 1) + e^y + e^{-y}",
     "puntos_iniciales": [
-        [1.5, 1.0],
-        [0.5, 0.5],
-        [1.5, -1.0],
-        [2.0, 0.5],
-        [0.8, -0.8],
-        [0.3, 0.2],
-        [1.2, -0.3],
-        [0.7, 1.5],
-        [1.8, -1.5],
-        [0.4, -1.2]
+
+        [0.3, 0.2],    
+
+        [1.5, 1.0],    
+        [1.5, -1.0],  
+        [1.8, -1.5],   
+        
+        [0.5, 0.0],    
+        [0.0, 0.5],   
+        
+        [0.8, -0.8],   
+        [0.7, 1.5]  
     ],
     "parametros_optimizacion": {
         "max_iter_md": 1000,
         "max_iter_newton": 100,
         "tolerancia": 1e-8,
         "alpha_md": 0.1,
-        "verificar_hessiano": true
+        "verificar_hessiano": true,
+        "metodos": ["gradiente_descendente", "newton", "bfgs", "nelder-mead"]
     },
     "visualizacion": {
-        "rango_x": [0.1, 2.0],
+        "rango_x": [-2.0, 2.0], 
         "rango_y": [-2.0, 2.0],
-        "puntos_grid": 50,
-        "niveles_contorno": 20
+        "puntos_grid": 100,      
+        "niveles_contorno": 30,
+        "mostrar_puntos_iniciales": true,
+        "mostrar_trayectorias": true
     },
-    "minimo_esperado": [1.0, 0.0]
+    "minimo_esperado": [0.0, 0.0],  
+    "caracteristicas_funcion": {
+        "simetria_x": "par",
+        "simetria_y": "no par",
+        "dominio": "ℝ²",
+        "rango_estimado": "[3, ∞)",
+        "gradientes_fuertes_en": "regiones con |y| grande"
+    }
 }
