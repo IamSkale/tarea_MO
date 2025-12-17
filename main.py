@@ -10,7 +10,7 @@ def main():
 
         # Ejecutar análisis completo
         optimizador.ejecutar_optimizaciones()
-        optimizador.visualizar_resultados()
+        optimizador.guardar_resultados_json()
         optimizador.generar_reporte()
 
         print("\n🎯 ANÁLISIS COMPLETADO EXITOSAMENTE")

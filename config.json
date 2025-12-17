@@ -1,41 +1,245 @@
 {
-    "funcion": "f(x,y) = (x^2 + 1)^(y^2 + 1) + e^y + e^{-y}",
-    "puntos_iniciales": [
-
-        [0.3, 0.2],    
-
-        [1.5, 1.0],    
-        [1.5, -1.0],  
-        [1.8, -1.5],   
-        
-        [0.5, 0.0],    
-        [0.0, 0.5],   
-        
-        [0.8, -0.8],   
-        [0.7, 1.5]  
-    ],
-    "parametros_optimizacion": {
-        "max_iter_md": 1000,
-        "max_iter_newton": 100,
-        "tolerancia": 1e-8,
-        "alpha_md": 0.1,
-        "verificar_hessiano": true,
-        "metodos": ["gradiente_descendente", "newton", "bfgs", "nelder-mead"]
+  "funcion": "f(x,y) = (x^2 + 1)^(y^2 + 1) + e^y + e^{-y}",
+  "minimo_global": {
+    "punto": [0, 0],
+    "valor": 3,
+    "tipo": "mínimo global",
+    "gradiente": [0, 0],
+    "hessiano": [[2, 0], [0, 4]]
+  },
+  "parametros_optimizacion": {
+    "max_iter_md": 1000,
+    "max_iter_newton": 100,
+    "tolerancia": 1e-8,
+    "alpha_md": 0.1,
+    "verificar_hessiano": true
+  },
+  "puntos_iniciales": [
+    {
+      "categoria": "cerca_del_minimo",
+      "descripcion": "Puntos cercanos al mínimo para probar convergencia rápida",
+      "cantidad": 24,
+      "puntos": [
+        [0.1, 0.1], [-0.1, 0.1], [0.1, -0.1], [-0.1, -0.1],
+        [0.05, 0.05], [-0.05, 0.05], [0.05, -0.05], [-0.05, -0.05],
+        [0.2, 0], [0, 0.2], [-0.2, 0], [0, -0.2],
+        [0.15, 0.15], [-0.15, 0.15], [0.15, -0.15], [-0.15, -0.15],
+        [0.01, 0.1], [-0.01, 0.1], [0.1, 0.01], [-0.1, 0.01],
+        [0.25, 0.05], [-0.25, 0.05], [0.05, 0.25], [-0.05, 0.25]
+      ]
     },
-    "visualizacion": {
-        "rango_x": [-2.0, 2.0], 
-        "rango_y": [-2.0, 2.0],
-        "puntos_grid": 100,      
-        "niveles_contorno": 30,
-        "mostrar_puntos_iniciales": true,
-        "mostrar_trayectorias": true
+    {
+      "categoria": "lejos_del_minimo",
+      "descripcion": "Puntos alejados para probar robustez y convergencia desde lejos",
+      "cantidad": 24,
+      "puntos": [
+        [5, 5], [-5, 5], [5, -5], [-5, -5],
+        [10, 10], [-10, 10], [10, -10], [-10, -10],
+        [15, 0], [-15, 0], [0, 15], [0, -15],
+        [8, 3], [-8, 3], [8, -3], [-8, -3],
+        [12, 5], [-12, 5], [12, -5], [-12, -5],
+        [7, 9], [-7, 9], [7, -9], [-7, -9]
+      ]
     },
-    "minimo_esperado": [0.0, 0.0],  
-    "caracteristicas_funcion": {
-        "simetria_x": "par",
-        "simetria_y": "no par",
-        "dominio": "ℝ²",
-        "rango_estimado": "[3, ∞)",
-        "gradientes_fuertes_en": "regiones con |y| grande"
+    {
+      "categoria": "valores_grandes_x",
+      "descripcion": "x grande, y pequeño - para ver efecto del término polinomial/exponencial",
+      "cantidad": 24,
+      "puntos": [
+        [20, 0.1], [-20, 0.1], [20, -0.1], [-20, -0.1],
+        [50, 0], [-50, 0], [100, 0], [-100, 0],
+        [30, 0.5], [-30, 0.5], [30, -0.5], [-30, -0.5],
+        [15, 0.01], [-15, 0.01], [25, 0.2], [-25, 0.2],
+        [40, 0.3], [-40, 0.3], [60, 0.15], [-60, 0.15],
+        [75, 0.25], [-75, 0.25], [90, 0.4], [-90, 0.4]
+      ]
+    },
+    {
+      "categoria": "valores_grandes_y",
+      "descripcion": "y grande - el término cosh(y) = e^y + e^{-y} domina y crece exponencialmente",
+      "cantidad": 24,
+      "puntos": [
+        [0, 3], [0, -3], [0, 5], [0, -5],
+        [0, 10], [0, -10], [0, 15], [0, -15],
+        [1, 4], [-1, 4], [1, -4], [-1, -4],
+        [0.5, 6], [-0.5, 6], [0.5, -6], [-0.5, -6],
+        [2, 8], [-2, 8], [2, -8], [-2, -8],
+        [3, 12], [-3, 12], [1.5, 7], [-1.5, 7]
+      ]
+    },
+    {
+      "categoria": "zona_plataforma",
+      "descripcion": "Regiones donde la función tiene curvatura suave y gradiente pequeño",
+      "cantidad": 24,
+      "puntos": [
+        [2, 1], [-2, 1], [2, -1], [-2, -1],
+        [1, 2], [-1, 2], [1, -2], [-1, -2],
+        [3, 0.5], [-3, 0.5], [3, -0.5], [-3, -0.5],
+        [1.5, 1.5], [-1.5, 1.5], [1.5, -1.5], [-1.5, -1.5],
+        [2.5, 0.8], [-2.5, 0.8], [2.5, -0.8], [-2.5, -0.8],
+        [0.8, 2.2], [-0.8, 2.2], [0.8, -2.2], [-0.8, -2.2]
+      ]
+    },
+    {
+      "categoria": "puntos_criticos_estacionarios",
+      "descripcion": "Puntos donde gradiente es cero o casi cero (posibles puntos silla o mínimos locales)",
+      "cantidad": 24,
+      "puntos": [
+        [0, 1], [0, -1], [1, 0], [-1, 0],
+        [0, 2], [0, -2], [2, 0], [-2, 0],
+        [0, 0.5], [0, -0.5], [0.5, 0], [-0.5, 0],
+        [1, 1], [-1, 1], [1, -1], [-1, -1],
+        [1.414, 0], [-1.414, 0], [0, 1.732], [0, -1.732],
+        [1.5, 0.5], [-1.5, 0.5], [0.5, 1.5], [-0.5, 1.5]
+      ]
+    },
+    {
+      "categoria": "direcciones_diagonales",
+      "descripcion": "Puntos a lo largo de direcciones diagonales y antidiagonales",
+      "cantidad": 24,
+      "puntos": [
+        [3, 3], [-3, 3], [3, -3], [-3, -3],
+        [4, 4], [-4, 4], [4, -4], [-4, -4],
+        [6, 6], [-6, 6], [6, -6], [-6, -6],
+        [2, -2], [-2, 2], [5, -5], [-5, 5],
+        [7, 7], [-7, 7], [8, -8], [-8, 8],
+        [1, 3], [-1, 3], [3, 1], [-3, 1]
+      ]
+    },
+    {
+      "categoria": "cerca_ejes_coordenados",
+      "descripcion": "Puntos muy cercanos a los ejes X e Y",
+      "cantidad": 24,
+      "puntos": [
+        [0.001, 0], [0, 0.001], [-0.001, 0], [0, -0.001],
+        [0.01, 0], [0, 0.01], [-0.01, 0], [0, -0.01],
+        [0.1, 0], [0, 0.1], [-0.1, 0], [0, -0.1],
+        [0.5, 0], [0, 0.5], [-0.5, 0], [0, -0.5],
+        [2, 0.001], [0.001, 2], [-2, 0.001], [0.001, -2],
+        [1, 0.005], [0.005, 1], [-1, 0.005], [0.005, -1]
+      ]
+    },
+    {
+      "categoria": "valores_intermedios",
+      "descripcion": "Valores moderados para testeo general",
+      "cantidad": 24,
+      "puntos": [
+        [1.2, 0.7], [-1.2, 0.7], [1.2, -0.7], [-1.2, -0.7],
+        [2.3, 1.4], [-2.3, 1.4], [2.3, -1.4], [-2.3, -1.4],
+        [0.7, 1.8], [-0.7, 1.8], [0.7, -1.8], [-0.7, -1.8],
+        [1.8, 2.2], [-1.8, 2.2], [1.8, -2.2], [-1.8, -2.2],
+        [3.2, 1.1], [-3.2, 1.1], [3.2, -1.1], [-3.2, -1.1],
+        [0.9, 2.7], [-0.9, 2.7], [0.9, -2.7], [-0.9, -2.7]
+      ]
+    },
+    {
+      "categoria": "patrones_especiales",
+      "descripcion": "Patrones específicos para test de algoritmos de optimización",
+      "cantidad": 24,
+      "puntos": [
+        [0.3, 4.7], [-0.3, 4.7], [0.3, -4.7], [-0.3, -4.7],
+        [7.2, 1.5], [-7.2, 1.5], [7.2, -1.5], [-7.2, -1.5],
+        [4.1, 3.8], [-4.1, 3.8], [4.1, -3.8], [-4.1, -3.8],
+        [2.8, 6.3], [-2.8, 6.3], [2.8, -6.3], [-2.8, -6.3],
+        [5.5, 2.2], [-5.5, 2.2], [5.5, -2.2], [-5.5, -2.2],
+        [1.7, 3.3], [-1.7, 3.3], [1.7, -3.3], [-1.7, -3.3]
+      ]
+    },
+    {
+      "categoria": "regiones_cuadrantes",
+      "descripcion": "Puntos distribuidos en los cuatro cuadrantes con magnitudes similares",
+      "cantidad": 24,
+      "puntos": [
+        [3, 4], [-3, 4], [3, -4], [-3, -4],
+        [6, 8], [-6, 8], [6, -8], [-6, -8],
+        [9, 12], [-9, 12], [9, -12], [-9, -12],
+        [5, 12], [-5, 12], [5, -12], [-5, -12],
+        [8, 15], [-8, 15], [8, -15], [-8, -15],
+        [7, 24], [-7, 24], [7, -24], [-7, -24]
+      ]
+    },
+    {
+      "categoria": "escala_logaritmica",
+      "descripcion": "Puntos espaciados logarítmicamente para cubrir varios órdenes de magnitud",
+      "cantidad": 24,
+      "puntos": [
+        [0.001, 0.001], [0.01, 0.01], [0.1, 0.1], [1, 1],
+        [10, 10], [100, 100], [0.001, 1], [1, 0.001],
+        [0.01, 10], [10, 0.01], [0.1, 100], [100, 0.1],
+        [1, 1000], [1000, 1], [10, 0.001], [0.001, 10],
+        [100, 0.01], [0.01, 100], [1000, 0.1], [0.1, 1000],
+        [0.0001, 0.0001], [0.0001, 1], [1, 0.0001], [10000, 0.001]
+      ]
+    },
+    {
+      "categoria": "lineas_nivel",
+      "descripcion": "Puntos sobre líneas de nivel específicas de la función",
+      "cantidad": 24,
+      "puntos": [
+        [1, 0], [-1, 0], [0, 1], [0, -1],  
+        [1, 1], [-1, 1], [1, -1], [-1, -1],  
+        [2, 0], [-2, 0], [0, 2], [0, -2],  
+        [2, 1], [-2, 1], [2, -1], [-2, -1],  
+        [1, 2], [-1, 2], [1, -2], [-1, -2],  
+        [3, 0], [-3, 0], [0, 3], [0, -3]   
+      ]
+    },
+    {
+      "categoria": "casos_borde",
+      "descripcion": "Casos extremos y valores límite",
+      "cantidad": 24,
+      "puntos": [
+        [1e-6, 0], [0, 1e-6], [-1e-6, 0], [0, -1e-6],
+        [1e6, 0], [0, 1e6], [-1e6, 0], [0, -1e6],
+        [1e-3, 1e3], [1e3, 1e-3], [-1e-3, 1e3], [1e3, -1e-3],
+        [1e4, 1e-4], [1e-4, 1e4], [-1e4, 1e-4], [1e-4, -1e4],
+        [999, 0.001], [0.001, 999], [-999, 0.001], [0.001, -999],
+        [0.000001, 100000], [100000, 0.000001], [-0.000001, 100000], [100000, -0.000001]
+      ]
     }
+  ],
+  "informacion_tecnica": {
+    "gradiente": "∇f = [2x(y^2+1)(x^2+1)^(y^2), 2y(x^2+1)^(y^2+1)ln(x^2+1) + e^y - e^{-y}]",
+    "hessiano": "Matriz 2x2 con términos mixtos no nulos cuando x≠0 e y≠0",
+    "dominio": "ℝ² (todos los reales)",
+    "rango": "[3, ∞)",
+    "simetrias": "Par en x y par en y: f(x,y) = f(-x,y) = f(x,-y) = f(-x,-y)",
+    "comportamiento_asintotico": {
+      "x_fijo_y_grande": "f ≈ e^|y| (crecimiento exponencial)",
+      "y_fijo_x_grande": "f ≈ x^(2(y^2+1)) (crecimiento polinomial de grado variable)",
+      "ambos_grandes": "f ≈ (x^2)^(y^2) + e^|y| (crecimiento superexponencial si x,y crecen juntos)"
+    }
+  },
+  "recomendaciones_pruebas": {
+    "maximo_descenso": {
+      "puntos_dificiles": [
+        [0, 10],  
+        [100, 0.1],  
+        [1, 100]   
+      ],
+      "tasa_aprendizaje": "Recomendada adaptativa debido a variaciones grandes en el gradiente"
+    },
+    "newton": {
+      "puntos_problematicos": [
+        [0, 0.001],  
+        [100000, 0],  
+        [0, 1000]   
+      ],
+      "observacion": "Puede necesitar modificaciones (damping) para puntos lejanos"
+    },
+    "comparaciones_interesantes": [
+      {
+        "descripcion": "Mismo radio, diferentes ángulos",
+        "puntos": [[5,0], [3.535,3.535], [0,5]]
+      },
+      {
+        "descripcion": "Simetría par",
+        "puntos": [[2,3], [-2,3], [2,-3], [-2,-3]]
+      },
+      {
+        "descripcion": "Diferentes escalas",
+        "puntos": [[0.1,0.1], [1,1], [10,10], [100,100]]
+      }
+    ]
+  }
 }
